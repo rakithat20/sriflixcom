@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, json } from 'react-router-dom'
 import { FaSearch, FaHeart } from "react-icons/fa";
 import { CgUser } from "react-icons/cg";
 import { hover } from '@testing-library/user-event/dist/hover';
@@ -7,6 +7,11 @@ import { hover } from '@testing-library/user-event/dist/hover';
 function Navbar() {
   const hover = "hover:text-subMain transitions text-white";
   const Hover = ({isActive}) => (isActive ? 'text-subMain' : hover); 
+  const handleChange =(value)=>{
+    fetch(`http://localhost:65315/sriflix/Video/search/${value}`)
+    .then((response)=>response.json())
+    .then((json)=>console.log(json))
+  }
 
   return (
     <>
@@ -22,7 +27,7 @@ function Navbar() {
               <button type="submit" className="bg-subMain w-12 flex-colo h-12 rounded text-white">
               <FaSearch />
               </button>
-              <input type="text" placeholder="Search Movie Name From Here" className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"/>
+              <input type="text" placeholder="Search Movie Name From Here" className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"onChange={(e)=>handleChange(e.target.value)}/>
             </form>
           </div>
           <div className="col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center">
