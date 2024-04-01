@@ -11,7 +11,7 @@ function WatchPage() {
     const [play, setPlay] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:65315/sriflix/Video/search/${id}`)
+        fetch(`http://localhost:8080/movie/Video/search/${id}`)
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

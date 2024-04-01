@@ -8,7 +8,7 @@ function Navbar() {
   const hover = "hover:text-subMain transitions text-white";
   const Hover = ({isActive}) => (isActive ? 'text-subMain' : hover); 
   const handleChange =(value)=>{
-    fetch(`http://localhost:65315/sriflix/Video/search/${value}`)
+    fetch(`http://localhost:8080/movie/Video/search/${value}`)
     .then((response)=>response.json())
     .then((json)=>console.log(json))
   }

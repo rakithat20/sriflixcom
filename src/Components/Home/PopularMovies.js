@@ -8,7 +8,7 @@ function PopularMovies() {
   const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:65315/sriflix/Video/toprated')
+        fetch('http://localhost:8080/movie/Video/toprated')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array
