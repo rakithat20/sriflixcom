@@ -16,6 +16,7 @@ import FavoriteMovie from './Screens/Dashboard/FavoriteMovies';
 import MoviesList from './Screens/Dashboard/Admin/MovieList';
 import Dashboard from './Screens/Dashboard/Admin/Dashboard';
 import Users2 from './Screens/Dashboard/Admin/Users';
+import AddMovie from './Screens/Dashboard/Admin/AddMovies';
 
 
 function App() {
@@ -38,6 +39,8 @@ function App() {
       <Route path="/movielist" element={<MoviesList/>} />
       <Route path="/dashboard" element={<Dashboard/>} />
       <Route path="/users" element={<Users2/>} />
+      <Route path="/addmovie" element={<AddMovie/>} />
+
 
 
     
