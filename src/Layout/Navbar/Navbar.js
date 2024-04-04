@@ -22,7 +22,7 @@ function Navbar() {
               <button type="submit" className="bg-subMain w-12 flex-colo h-12 rounded text-white">
               <FaSearch />
               </button>
-              <input type="text" placeholder="Search Movie Name From Here" className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black"/>
+              <input type="text" placeholder="Search Movie Name From Here" className="font-medium placeholder:text-border text-sm w-11/12 h-12 bg-transparent border-none px-2 text-black" onChange={(e) => console.log(e.target.value)}/>
             </form>
           </div>
           <div className="col-span-3 font-medium text-sm hidden xl:gap-14 2xl:gap-20 justify-between lg:flex xl:justify-end items-center">

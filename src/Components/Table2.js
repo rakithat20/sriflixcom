@@ -23,8 +23,8 @@ const Rows=(data,i,users)=>{
                        
                 </div>
             </td>
-            <td className={`${Text}`}>{data._id ? data._id : "2R75T8"}</td>
-            <td className={`${Text}`}>{data.createAt ? data.createAt :"12,Jan 2023"}</td>
+            <td className={`${Text}`}>{data.name ? data.name:'User'}</td>
+            <td className={`${Text}`}>{data.age ? data.age :"12,Jan 2023"}</td>
             <td className={`${Text}`}>{data.fullName}</td>
             <td className={`${Text}`}>{data.email}</td>
             <td className={`${Text} float-right flex-rows gap-2`}>
@@ -79,10 +79,10 @@ function Table2({ data, users }){
                             Image
                         </th>
                         <th scope="col" className={`${Head}`}>
-                            Id
+                            Name
                         </th>
                         <th scope="col" className={`${Head}`}>
-                            Date
+                            Age
                         </th>
                         <th scope="col" className={`${Head}`}>
                             Full Name

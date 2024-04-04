@@ -1,34 +1,60 @@
-import React, { useState } from 'react'
-import Layout from '../Layout/Layout'
-import { useParams, Link } from 'react-router-dom'
-import { Movies } from '../Data/MovieData'
-import { BiArrowBack } from 'react-icons/bi'
-import { FaCloudDownloadAlt, FaHeart, FaPlay } from 'react-icons/fa'
-
+import React, { useEffect, useState } from 'react';
+import Layout from '../Layout/Layout';
+import { useParams, Link } from 'react-router-dom';
+import { BiArrowBack } from 'react-icons/bi';
+import { FaCloudDownloadAlt, FaHeart, FaPlay } from 'react-icons/fa';
 
 function WatchPage() {
     let { id } = useParams();
-    const movie = Movies.find((movie) => movie.name === id);
-    const [play, setPlay] = useState(false)
-    return <Layout>
-        <div className="container mx-auto bg-dry p-6 mb-12">
-            <div className="flex-btn flex-wrap mb-6 gap-6 bg-main rounded border border-gray-800 p-6">
-                <Link to={`/movie/${movie?.name}`} className="md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray">
-                    <BiArrowBack /> {movie?.name}
-                </Link>
-                <div className="flex-btn sm:w-auto w-full gap-5">
-                    <button className="bg-white hover:text-subMain transitions bg-opacity-30 text-white rounded px-4 py-3 text-sm">
-                        <FaHeart />
-                    </button>
-                    <button className="bg-subMain flex-rows gap-2 hover:text-main transitions text-white rounded px-8 font-medium py-3 text-sm">
-                        <FaCloudDownloadAlt /> Download
-                    </button>
+    const [movie, setMovie] = useState({});
+    const [play, setPlay] = useState(false);
+
+    useEffect(() => {
+        fetch(`http://localhost:8080/movie/Video/search/${id}`)
+            .then(response => response.json())
+            .then(data => {
+                const mappedMovies = data.map(movie => ({
+                    name: movie.title,
+                    desc: movie.plot,
+                    titleImage: movie.poster,
+                    image: movie.backdrop,
+                    category: movie.genre.split(',').map(genre => genre.trim() + ' '),
+                    language: 'English',
+                    year: movie.year,
+                    time: movie.runtime,
+                    video: movie.cdnPath,
+                    rate: parseFloat(movie.imdbRatings),
+                    reviews: 0,
+                    imdbid: movie.imdbId
+                }));
+                setMovie(mappedMovies[0]);
+            })
+            .catch(error => console.error('Error fetching movies:', error));
+    }, [id]);
+
+    useEffect(() => {
+        console.log(movie);
+    }, [movie]);
+
+    return (
+        <Layout>
+            <div className="container mx-auto bg-dry p-6 mb-12">
+                <div className="flex-btn flex-wrap mb-6 gap-6 bg-main rounded border border-gray-800 p-6">
+                    <Link to={movie?.name} className="md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray">
+                        <BiArrowBack /> {movie?.name}
+                    </Link>
+                    <div className="flex-btn sm:w-auto w-full gap-5">
+                        <button className="bg-white hover:text-subMain transitions bg-opacity-30 text-white rounded px-4 py-3 text-sm">
+                            <FaHeart />
+                        </button>
+                        <button className="bg-subMain flex-rows gap-2 hover:text-main transitions text-white rounded px-8 font-medium py-3 text-sm">
+                            <FaCloudDownloadAlt /> Download
+                        </button>
+                    </div>
                 </div>
-            </div>
-            {
-                play ? (
+                {play ? (
                     <video controls autoPlay={play} className="w-full h-full rounded">
-                        <source src="/images/movie.mp4" type="video/mp4" title={movie?.name} />
+                        <source src={movie.video} type="video/mp4" title={movie.name} />
                     </video>
                 ) : (
                     <div className="w-full h-screen rounded-lg overflow-hidden relative">
@@ -37,14 +63,12 @@ function WatchPage() {
                                 <FaPlay />
                             </button>
                         </div>
-                        <img src={movie?.image?`/images/movies/${movie?.image}`
-                        :"/images/movie.jpg"
-                        } alt={movie?.name} className="w-full h-full object-cover rounded-lg" />
+                        <img src={movie.image} alt={movie?.name} className="w-full h-full object-cover rounded-lg" />
                     </div>
-                )
-            }
-        </div>
-    </Layout>
+                )}
+            </div>
+        </Layout>
+    );
 }
 
-export default WatchPage
+export default WatchPage;

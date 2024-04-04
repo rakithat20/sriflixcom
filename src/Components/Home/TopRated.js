@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Titles from './../Titles';
 import { BsBookmarkStarFill, BsCaretLeft, BsCaretLeftFill, BsCaretRight, BsCaretRightFill } from 'react-icons/bs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper/modules';
-import { Movies } from '../../Data/MovieData';
 import { Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa'; 
 import Rating from '../Stars';
@@ -14,6 +13,33 @@ function TopRated() {
   const [nextEl, setNextEl] = useState(null);
   const [prevEl, setPrevEl] = useState(null);
   const classNames = "hover:bg-dry transitions text-sm rounded w-8 h-8 flex-colo bg-subMain text-white";
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+      fetch('http://localhost:8080/movie/Video/toprated')
+          .then(response => response.json())
+          .then(data => {
+              // Map the data to match the format of Movies array
+              const mappedMovies = data.map(movie => ({
+                  name: movie.title,
+                  desc: movie.plot,
+                  titleImage: movie.poster,
+                  image: movie.backdrop, // Assuming poster as the image
+                  category: movie.genre.split(',').map(genre => genre.trim() + ' '), // Split genre string into an array with space
+                  language: 'English', // Assuming language is always English for simplicity
+                  year: movie.year,
+                  time: movie.runtime,
+                  video: movie.cdnPath, // Assuming cdnPath as the video link
+                  rate: parseFloat(movie.imdbRatings), // Convert imdbRatings to float
+                  reviews: 0, // You can set reviews to 0 or some default value
+                  imdbid:movie.imdbId
+              }));
+              setMovies(mappedMovies);
+          })
+          .catch(error => console.error('Error fetching movies:', error));
+  }, []);
+  
+
 
   return (
     <div className="my-16 p-5">
@@ -22,10 +48,10 @@ function TopRated() {
         <Swiper navigation={{ nextEl, prevEl }} slidesPerView={4} spaceBetween={40}
           autoplay={true} speed={1000} loop={true} modules={[Navigation, Autoplay]}>
           {
-            Movies.map((movie, index) => (
+            movies.map((movie, index) => (
               <SwiperSlide key={index}>
                 <div className="p-4 h-rate hovered border border-border bg-dry rounded-lg overflow-hidden">
-                  <img src={`/images/movies/${movie.titleImage}`} alt={movie.name} className="w-full h-full object-cover rounded-lg" />
+                  <img src={movie.titleImage} alt={movie.name} className="w-full h-full object-cover rounded-lg" />
                   <div className="px-4 hoveres gap-6 text-center absolute bg-black bg-opacity-70 top-0 left-0 right-0 bottom-0">
                     <button className="w-12 h-12 flex-colo transition hover:bg-subMain rounded-full bg-white bg-opacity-30 text-white">
                       <FaHeart />

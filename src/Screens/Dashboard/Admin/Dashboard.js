@@ -1,12 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideBar from "../SideBar";
 import { FaRegListAlt, FaUser } from "react-icons/fa";
 import { HiViewGridAdd } from "react-icons/hi";
 import Table from "../../../Components/Table";
 import { Movies } from "../../../Data/MovieData";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard(){
+    const navigate = useNavigate();
 
+    useEffect(() => {
+      const logged = getLoggedFromLocalStorage();
+      if (!logged) {
+        navigate('/login'); // Redirect to '/login' route
+        alert("please Log in before access the dashbord")
+      }
+    }, [navigate]);
+  
+    const getLoggedFromLocalStorage = () => {
+      const isLogged = localStorage.getItem('isLogged');
+      return isLogged ? JSON.parse(isLogged) : false;
+    };
     const DashboardData=[
         {
             bg:"bg-orange-600",
