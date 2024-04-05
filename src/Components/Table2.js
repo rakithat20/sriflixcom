@@ -14,19 +14,12 @@ const Rows=(data,i,users)=>{
                 users ? (
                     <>
                         <td className={`${Text}`}>
-                <div className="w-12 p-1 bg-dry border border-border h-12 rounded overflow-hidden">
-                    <img
-                        className="h-full w-full object-cover"
-                        src={`/images/${data.image ? data.image : "user.png"}`}
-                        alt={data?.fullName}
-                        />
-                       
-                </div>
+                
             </td>
-            <td className={`${Text}`}>{data.name ? data.name:'User'}</td>
-            <td className={`${Text}`}>{data.age ? data.age :"12,Jan 2023"}</td>
-            <td className={`${Text}`}>{data.fullName}</td>
-            <td className={`${Text}`}>{data.email}</td>
+            <td className={`${Text}`}>{data.username }</td>
+            <td className={`${Text}`}>{data.password }</td>
+            <td className={`${Text}`}>{data.mail}</td>
+            <td className={`${Text}`}>{data.role}</td>
             <td className={`${Text} float-right flex-rows gap-2`}>
         
                     <button className="bg-subMain text-white rounded flex-colo w-7 h-7">
@@ -76,19 +69,19 @@ function Table2({ data, users }){
                         users ? (
                             <>
                              <th scope="col" className={`${Head}`}>
-                            Image
+                           
                         </th>
                         <th scope="col" className={`${Head}`}>
                             Name
                         </th>
                         <th scope="col" className={`${Head}`}>
-                            Age
-                        </th>
-                        <th scope="col" className={`${Head}`}>
-                            Full Name
+                            Password 
                         </th>
                         <th scope="col" className={`${Head}`}>
                             Email
+                        </th>
+                        <th scope="col" className={`${Head}`}>
+                            Role
                         </th>
                             </>
                         ):

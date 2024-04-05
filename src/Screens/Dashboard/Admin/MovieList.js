@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import SideBar from "../SideBar";
 import Table from "../../../Components/Table";
-import { Movies } from "../../../Data/MovieData";
 
 
 function MoviesList(){

@@ -3,6 +3,12 @@ import { Input } from "../../Components/UsedInputs";
 import SideBar from "./SideBar";
 
 function Password(){
+    const user =  JSON.parse(localStorage.getItem('user'));
+ 
+    if(user===null){
+        window.alert('Please login First')
+        window.location.assign('/login')
+    }
     return (
         <SideBar>
             <div className="flex flex-col gap-6">

@@ -113,6 +113,9 @@ function AddMovie(){
             if (!response.ok) {
                 throw new Error('Failed to publish movie.');
             }
+            else{
+                window.alert(title+'Added Successfully')
+            }
             // Handle successful response
         })
         .catch(error => console.error('Error publishing movie:', error));
@@ -132,9 +135,9 @@ function AddMovie(){
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     {suggestions.length > 0 && (
-                        <ul className="text-drygrey font-semibold text-sm">
+                        <ul className="text-xl font-bold">
                             {suggestions.map((suggestion, index) => (
-                                <li key={index} className="cursor-pointer py-2 px-4 hover:bg-gray-100 truncate text-main text-sm" onClick={() => handleSuggestionClick(suggestion)}> {/* Add truncate class */}
+                                <li key={index} className="cursor-pointer py-2 px-4 bg-main hover:bg-gray-700 truncate text-dygray text-sm" onClick={() => handleSuggestionClick(suggestion)}> {/* Add truncate class */}
                                     {suggestion.Title}
                                 </li>
                             ))}

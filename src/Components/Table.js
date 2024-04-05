@@ -60,9 +60,10 @@ const Rows = (movie, i, admin) => {
                                 Download <FaCloudDownloadAlt className="text-green-500" />
                             </button>
                             <Link
-                                to={movie?.name}
-                                className="bg-subMain text-white rounded flex-colo w-7 h-7">
-                                <GoEye />
+                              to={`/movie/${encodeURIComponent(movie?.name)}`} // Encoding the movie name
+                              className="bg-subMain text-white rounded flex-colo w-7 h-7"
+                            >
+                            <GoEye />
                             </Link>
                         </>
                     )

@@ -1,14 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import { Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Movies } from '../../Data/MovieData';
 import FlexMovieItems from '../FlexMovieItems';
 import { Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 
 function Banner() {
     const [movies, setMovies] = useState([]);
-
+    const [likedMovie, setLiked]=useState('');
+    const user = JSON.parse(localStorage.getItem('user'));
+    
+    
+    const handleLiked=(imdbid)=>{
+       
+        if(user==null){
+            window.alert('Please Login For save Your favourite movies <3')
+            window.location.assign('/login');
+        }
+        else{
+            const Formdata = new FormData();
+            Formdata.append('imdbid',imdbid)
+            Formdata.append('userid',user.id)
+            postLiked(Formdata);
+            for (let pair of Formdata.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+              }
+        }
+       
+    }
+    async function postLiked(formData) {
+        try {
+          const response = await fetch('http://localhost:8080/user/users/addtoliked', {
+            method: 'POST',
+            body: formData
+          });
+      
+        } catch (error) {
+          console.error('Error posting liked movie:', error);
+        }
+      }
+    
     useEffect(() => {
         fetch('http://localhost:8080/movie/Video/movies')
             .then(response => response.json())
@@ -33,7 +64,7 @@ function Banner() {
             .catch(error => console.error('Error fetching movies:', error));
     }, []);
     return (
-        <div className="relative w-full xl:h-96 lg:h-64 h-48"> {/* Adjust height here */}
+        <div className="relative w-full xl:h-96 lg:h-64 h-48"> 
             <Swiper
                 direction="vertical"
                 spaceBetween={0}
@@ -58,11 +89,11 @@ function Banner() {
                                 <Link to={`/movie/${movie.name}`} className="bg-subMain hover:text-main transition text-white px-8 py-3 rounded font-medium sm:text-sm text-xs">
                                     Watch Now
                                 </Link>
-                                <button className="bg-white hover:text-subMain transition text-white px-4 py-3 rounded text-sm bg-opacity-30">
-                                    <FaHeart />
+                                <button className="bg-white hover:text-subMain transition text-white px-4 py-3 rounded text-sm bg-opacity-30" onClick={() => handleLiked(movie.imdbid)}>
+                                  <FaHeart />
                                 </button>
                             </div>
-                        </div>{console.log(movie.imdbid)}
+                        </div>
                     </SwiperSlide>
                 ))}
             </Swiper>

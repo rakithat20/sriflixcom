@@ -1,71 +1,75 @@
 import React from 'react';
 import { Link, Link as RouterLink } from 'react-router-dom';
+
+
 function Footer() {
-  const footerLinks = [
-    {
-      title: 'Company',
-      links: [
-        {
-          name: 'Home',
-          link: '/'
-        },
-        {
-          name: 'About Us',
-          link: '/about-us'
-        },
-        {
-          name: 'Contact Us',
-          link: '/contact-us'
-        },
-        {
-          name: 'Movies',
-          link: '/movies'
-        }
-      ]
-    },
-    {
-      title: 'Top Categories',
-      links: [
-        {
-          name: 'Action',
-          link: '#'
-        },
-        {
-          name: 'Romantic',
-          link: '#'
-        },
-        {
-          name: 'Drama',
-          link: '#'
-        },
-        {
-          name: 'Historical',
-          link: '#'
-        }
-      ]
-    },
-    {
-      title: 'My Account',
-      links: [
-        {
-          name: 'Dashboard',
-          link: '/dashboard'
-        },
-        {
-          name: 'My Favorites',
-          link: '/favorite'
-        },
-        {
-          name: 'Profile',
-          link: '/profile'
-        },
-        {
-          name: 'Change Password',
-          link: '/password'
-        }
-      ]
-    }
-  ];
+  const getIsAdmin = () => {
+    const isAdmin = localStorage.getItem('isAdmin');
+    return isAdmin ? JSON.parse(isAdmin) : false;
+  };
+
+  let footerLinks;
+
+  if (!getIsAdmin()) {
+    footerLinks = [
+      {
+        title: 'Company',
+        links: [
+          { name: 'Home', link: '/' },
+          { name: 'About Us', link: '/about-us' },
+          { name: 'Contact Us', link: '/contact-us' },
+          { name: 'Movies', link: '/movies' }
+        ]
+      },
+      {
+        title: 'Top Categories',
+        links: [
+          { name: 'Action', link: '#' },
+          { name: 'Romantic', link: '#' },
+          { name: 'Drama', link: '#' },
+          { name: 'Historical', link: '#' }
+        ]
+      },
+      {
+        title: 'My Account',
+        links: [
+          { name: 'My Favorites', link: '/favorites' },
+          { name: 'Profile', link: '/profile' },
+          { name: 'Change Password', link: '/password' }
+        ]
+      }
+    ];
+  } else {
+    footerLinks = [
+      {
+        title: 'Company',
+        links: [
+          { name: 'Home', link: '/' },
+          { name: 'About Us', link: '/about-us' },
+          { name: 'Contact Us', link: '/contact-us' },
+          { name: 'Movies', link: '/movies' }
+        ]
+      },
+      {
+        title: 'Top Categories',
+        links: [
+          { name: 'Action', link: '#' },
+          { name: 'Romantic', link: '#' },
+          { name: 'Drama', link: '#' },
+          { name: 'Historical', link: '#' }
+        ]
+      },
+      {
+        title: 'My Account',
+        links: [
+          { name: 'Dashboard', link: '/dashboard' },
+          { name: 'My Favorites', link: '/favorites' },
+          { name: 'Profile', link: '/profile' },
+          { name: 'Change Password', link: '/password' }
+        ]
+      }
+    ];
+  }
   return (
     <div className="bg-dry px-8 border=t-2 border-black rounded-lg">
       <div className="container mx-auto px-2">

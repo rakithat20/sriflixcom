@@ -8,8 +8,10 @@ function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
     const setUserToLocalStorage =(isLogged)=>{
         localStorage.setItem('isLogged', JSON.stringify(isLogged));
+       
     }
     const handleLogged=()=>{
         setUserToLocalStorage(true)
@@ -39,6 +41,7 @@ function Login() {
                 method: 'POST',
                 body: formData
             });
+            
     
             if (!response.ok) {
                 setError('Invalid email or password');
@@ -46,7 +49,7 @@ function Login() {
             }
     
             const responseData = await response.text();
-    
+            
             // Check if response data is not empty
             if (responseData.trim() === "") {
                 setError('Login failed. Please try again later.');
@@ -54,17 +57,20 @@ function Login() {
             }
     
             const user = JSON.parse(responseData);
+            localStorage.setItem('user', JSON.stringify(user));
+
     
             if (user.role === 'admin') {
                 // Redirect to dashboard
                 handleAdminLogin();
+                setUserToLocalStorage(true)
                 window.location.href = '/dashboard';
 
             } else {
                 // Handle non-admin user (optional)
                 handleAdminLogout();
                 handleLogged();
-                window.location.href = '/dashboard'
+                window.location.href = '/favorites'
                 //setError('You are not authorized to access the dashboard');
             }
         } catch (error) {

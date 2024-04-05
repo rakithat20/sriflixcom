@@ -53,18 +53,7 @@ function SingleMovie() {
     return (
         <Layout>
             <MovieInfo movie={movie} />
-            <div className="container mx-auto min-h-screen px-2 my-6">
-                <MovieCasts />
-                <MovieRates movie={movie} />
-                <div className="my-16">
-                    <Titles title="Related Movies" Icon={BsCollectionFill} />
-                    <div className="grid sm:mt-10 mt-6 xl:grid-cols-4 2xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 gap-6">
-                        {Movies.filter((m) => m.category === movie.category).map((relatedMovie, index) => (
-                            <Movie key={index} movie={relatedMovie} />
-                        ))}
-                    </div>
-                </div>
-            </div>
+            
         </Layout>
     )
 }
