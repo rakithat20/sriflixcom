@@ -10,7 +10,7 @@ function WatchPage() {
     const [play, setPlay] = useState(false);
 
     useEffect(() => {
-        fetch(`http://localhost:8080/movie/Video/search/${id}`)
+        fetch(`http://localhost:3000/movies/title/${id}`)
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({
@@ -22,10 +22,10 @@ function WatchPage() {
                     language: 'English',
                     year: movie.year,
                     time: movie.runtime,
-                    video: movie.cdnPath,
+                    video: 'https://'+movie.cdnpath,
                     rate: parseFloat(movie.imdbRatings),
                     reviews: 0,
-                    imdbid: movie.imdbId
+                    imdbid: movie.imdbid
                 }));
                 setMovie(mappedMovies[0]);
             })
@@ -33,7 +33,7 @@ function WatchPage() {
     }, [id]);
 
     useEffect(() => {
-        console.log(movie);
+        console.log(movie.video);
     }, [movie]);
 
     return (

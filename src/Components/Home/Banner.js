@@ -41,7 +41,7 @@ function Banner() {
       }
     
     useEffect(() => {
-        fetch('http://localhost:8080/movie/Video/movies')
+        fetch('http://localhost:3000/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

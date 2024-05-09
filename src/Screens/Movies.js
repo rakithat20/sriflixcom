@@ -17,7 +17,7 @@ function MoviesPage() {
 
   const fetchMovies = async () => {
     try {
-      let url = 'http://localhost:8080/movie/Video/movies';
+      let url = 'http://localhost:3000/movies';
   
       // If both search (title) and genre parameters are provided
       if (search !== '' && genre !== '') {

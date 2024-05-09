@@ -11,8 +11,9 @@ function FavoriteMovie(){
         window.location.assign('/login')
     }
     else{
-        url = 'http://localhost:8080/user/users/getliked/${uid}'
+        
         let uid = user.id;
+        url = `http://localhost:8080/user/users/getliked/${uid}`;
     }
    
     const [movies, setMovies] = useState([]);

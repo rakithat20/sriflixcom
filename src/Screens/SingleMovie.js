@@ -19,7 +19,7 @@ function SingleMovie() {
             setMovie(foundMovie);
         } else {
             // Fetch movie data from the server if not found in local data
-            fetch(`http://localhost:8080/movie/Video/search/${id}`)
+            fetch(`http://localhost:3000/movies/title/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {

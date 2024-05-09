@@ -16,7 +16,7 @@ function TopRated() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost:8080/movie/Video/toprated')
+      fetch('http://localhost:3000/movies')
           .then(response => response.json())
           .then(data => {
               // Map the data to match the format of Movies array
