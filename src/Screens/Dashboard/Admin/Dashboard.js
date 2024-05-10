@@ -48,18 +48,18 @@ function Dashboard() {
 
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const logged = getLoggedFromLocalStorage();
-        if (!logged) {
-            navigate('/login'); // Redirect to '/login' route
-            alert("please Log in before accessing the dashboard");
-        }
-    }, [navigate]);
+    // useEffect(() => {
+    //     const logged = getLoggedFromLocalStorage();
+    //     if (!logged) {
+    //         navigate('/login'); // Redirect to '/login' route
+    //         alert("please Log in before accessing the dashboard");
+    //     }
+    // }, [navigate]);
 
-    const getLoggedFromLocalStorage = () => {
-        const isLogged = localStorage.getItem('isLogged');
-        return isLogged ? JSON.parse(isLogged) : false;
-    };
+    // const getLoggedFromLocalStorage = () => {
+    //     const isLogged = localStorage.getItem('isLogged');
+    //     return isLogged ? JSON.parse(isLogged) : true;
+    // };
 
     const DashboardData = [
         {

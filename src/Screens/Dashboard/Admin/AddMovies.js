@@ -101,11 +101,11 @@ function AddMovie(){
     
         // Construct your form data to include postMovieObj and the selected file
         const formData = new FormData();
-        formData.append("video", selectedFile);
+        formData.append("file", selectedFile);
         formData.append("data", JSON.stringify(obj)); // Use 'obj' instead of 'movieObj'
     
         // Post the form data to your backend endpoint
-        fetch("http://localhost:8080/movie/Video/upload", {
+        fetch("http://localhost:3000/movies/upload", {
             method: 'POST',
             body: formData
         })
