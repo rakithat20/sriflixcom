@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Layout from '../Layout/Layout';
 import { Input } from '../Components/UsedInputs';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
 
 function Login() {
@@ -9,70 +9,31 @@ function Login() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-    const setUserToLocalStorage =(isLogged)=>{
-        localStorage.setItem('isLogged', JSON.stringify(isLogged));
-       
-    }
-    const handleLogged=()=>{
-        setUserToLocalStorage(true)
-    }
-    const setAdminToLocalStorage = (isAdmin) => {
-        localStorage.setItem('isAdmin', JSON.stringify(isAdmin));
-      };
-    const handleAdminLogin = () => {
-        setAdminToLocalStorage(true);
-      };
-      const clearAdminFromLocalStorage = () => {
-        localStorage.removeItem('isAdmin');
-      };
-      
-    const handleAdminLogout = () => {
-        clearAdminFromLocalStorage();
-    };
     const handleLogin = async () => {
         console.log('Email:', email);
         console.log('Password:', password);
         try {
-            const formData = new FormData();
-            formData.append('email', email);
-            formData.append('password', password);
-            console.log(email)
-            const response = await fetch('http://localhost:8080/user/users/login', {
+            const response = await fetch('http://localhost:3000/users/user/login', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'email': email,
+                    'password': password
+                })
             });
             
     
-            if (!response.ok) {
+            if (!response.status===200) {
                 setError('Invalid email or password');
                 return;
             }
-    
-            const responseData = await response.text();
-            
-            // Check if response data is not empty
-            if (responseData.trim() === "") {
-                setError('Login failed. Please try again later.');
-                return;
+            else{
+               return redirect('/dashboard')
             }
     
-            const user = JSON.parse(responseData);
-            localStorage.setItem('user', JSON.stringify(user));
 
-    
-            if (user.role === 'admin') {
-                // Redirect to dashboard
-                handleAdminLogin();
-                setUserToLocalStorage(true)
-                window.location.href = '/dashboard';
-
-            } else {
-                // Handle non-admin user (optional)
-                handleAdminLogout();
-                handleLogged();
-                window.location.href = '/favorites'
-                //setError('You are not authorized to access the dashboard');
-            }
         } catch (error) {
             console.error('Login failed:', error);
             setError('Login failed. Please try again later.');
