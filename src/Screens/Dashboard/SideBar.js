@@ -9,69 +9,43 @@ import { NavLink } from "react-router-dom";
 function SideBar({ children }) {
     // Define SideLinks outside of the conditional blocks
     let SideLinks;
-    const getAdminFromLocalStorage = () => {
-        const isAdmin = localStorage.getItem('isAdmin');
-        return isAdmin ? JSON.parse(isAdmin) : false;
-      };
-    const user = getAdminFromLocalStorage();
-    console.log(user)
-    if (user) {
-        SideLinks = [
-            {
-                name: "Dashboard",
-                Link: "/dashboard",
-                Icon: BsFillGridFill,
-            },
-            {
-                name: "Movie List",
-                Link: "/movielist",
-                Icon: FaListAlt,
-            },
-            {
-                name: "Add Movie",
-                Link: "/addmovie",
-                Icon: RiMovie2Fill,
-            },
-            {
-                name: "Users",
-                Link: "/users",
-                Icon: FaUsers,
-            },
-            {
-                name: "Update Profile",
-                Link: "/profile",
-                Icon: FiSettings,
-            },
-            {
-                name: "Favorites Movies",
-                Link: "/favorites",
-                Icon: FaHeart,
-            },
-            {
-                name: "Change Password",
-                Link: "/password",
-                Icon: RiLockPasswordLine,
-            },
-        ];
-    } else {
-        SideLinks = [
-            {
-                name: "Update Profile",
-                Link: "/profile",
-                Icon: FiSettings,
-            },
-            {
-                name: "Favorites Movies",
-                Link: "/favorites",
-                Icon: FaHeart,
-            },
-            {
-                name: "Change Password",
-                Link: "/password",
-                Icon: RiLockPasswordLine,
-            },
-        ];
-    }
+    SideLinks = [
+        {
+            name: "Dashboard",
+            Link: "/dashboard",
+            Icon: BsFillGridFill,
+        },
+        {
+            name: "Movie List",
+            Link: "/movielist",
+            Icon: FaListAlt,
+        },
+        {
+            name: "Add Movie",
+            Link: "/addmovie",
+            Icon: RiMovie2Fill,
+        },
+        {
+            name: "Users",
+            Link: "/users",
+            Icon: FaUsers,
+        },
+        {
+            name: "Update Profile",
+            Link: "/profile",
+            Icon: FiSettings,
+        },
+        {
+            name: "Favorites Movies",
+            Link: "/favorites",
+            Icon: FaHeart,
+        },
+        {
+            name: "Change Password",
+            Link: "/password",
+            Icon: RiLockPasswordLine,
+        },
+    ];
 
     const active = "bg-dryGray text-subMain";
     const hover = "hover:text-white hover:bg-main";
