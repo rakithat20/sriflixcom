@@ -11,19 +11,19 @@ function Dashboard() {
     const [movieCount, setMovieCount] = useState(0);
     console.log(userCount)
     useEffect(() => {
-        fetch('http://lobster-app-bxg93.ondigitalocean.app/users/count')
+        fetch('https://lobster-app-bxg93.ondigitalocean.app/users/count')
             .then(response => response.json())
             .then(data => setUserCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies/count')
+        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies/count')
             .then(response => response.json())
             .then(data => setMovieCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies')
+        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

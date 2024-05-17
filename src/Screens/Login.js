@@ -13,7 +13,7 @@ function Login() {
         console.log('Email:', email);
         console.log('Password:', password);
         try {
-            const response = await fetch('http://lobster-app-bxg93.ondigitalocean.app/users/user/login', {
+            const response = await fetch('https://lobster-app-bxg93.ondigitalocean.app/users/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

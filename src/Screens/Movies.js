@@ -23,7 +23,7 @@ function MoviesPage() {
       if (search !== '' && genre !== '') {
         url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genreAndTitle/${search}/${genre}`;
       } else if (search !== '') { // If only search (title) parameter is provided
-        url = `lobster-app-bxg93.ondigitalocean.app/movies/title/${search}`;
+        url = `https://lobster-app-bxg93.ondigitalocean.app/movies/title/${search}`;
       } else if (genre !== '') { // If only genre parameter is provided
         url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genre/${genre}`;
       }

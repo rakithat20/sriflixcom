@@ -19,7 +19,7 @@ function SingleMovie() {
             setMovie(foundMovie);
         } else {
             // Fetch movie data from the server if not found in local data
-            fetch(`http://lobster-app-bxg93.ondigitalocean.app/movies/title/${id}`)
+            fetch(`https://lobster-app-bxg93.ondigitalocean.app/movies/title/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {
