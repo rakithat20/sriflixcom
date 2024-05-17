@@ -7,7 +7,7 @@ function MoviesList(){
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies')
+        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies')
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({
