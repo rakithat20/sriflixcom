@@ -8,7 +8,7 @@ function Users2() {
     useEffect(() => {
         async function fetchUserData() {
             try {
-                const response = await fetch('http://localhost:8080/user/users/getall');
+                const response = await fetch('http://lobster-app-bxg93.ondigitalocean.app/users');
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
                 }

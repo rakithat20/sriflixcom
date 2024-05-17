@@ -7,7 +7,7 @@ function MoviesList(){
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/movies')
+        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies')
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({
@@ -22,7 +22,7 @@ function MoviesList(){
                     video: movie.cdnPath, 
                     rate: parseFloat(movie.imdbRatings), 
                     reviews: 0, // You can set reviews to 0 or some default value
-                    imdbid:movie.imdbId
+                    imdbid:movie.imdbid
                 }));
                 setMovies(mappedMovies);
             })

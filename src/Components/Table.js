@@ -10,10 +10,10 @@ const Text = "text-sm text-left leading-6 whitespace-nowrap px-5 py-3";
 const Rows = (movie, i, admin) => {
 
 
-    const handleDelete = async (name) => {
-        console.log('Movie Name:', name);
+    const handleDelete = async (movie) => {
+        console.log('Movie Name:', movie);
         try {
-            const response = await fetch(`http://localhost:8080/movie/Video/delete/${name}`, {
+            const response = await fetch(`lobster-app-bxg93.ondigitalocean.app/movies/delete/${movie.imdbid}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {
@@ -50,7 +50,7 @@ const Rows = (movie, i, admin) => {
                             <button className="border border-border bg-dry flex-rows gap-2 text-border rounded py-1 px-2">
                                 Edit <FaEdit className="text-green-500" />
                             </button>
-                            <button className="bg-subMain text-white rounded flex-colo w-7 h-7" onClick={() => handleDelete(movie.name)}>
+                            <button className="bg-subMain text-white rounded flex-colo w-7 h-7" onClick={() => handleDelete(movie)}>
                                 <MdDelete />
                             </button>
                         </>

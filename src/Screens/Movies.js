@@ -21,11 +21,11 @@ function MoviesPage() {
   
       // If both search (title) and genre parameters are provided
       if (search !== '' && genre !== '') {
-        url = `http://localhost:8080/movie/Video/genreAndTitle/${search}/${genre}`;
+        url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genreAndTitle/${search}/${genre}`;
       } else if (search !== '') { // If only search (title) parameter is provided
-        url = `http://localhost:8080/movie/Video/search/${search}`;
+        url = `lobster-app-bxg93.ondigitalocean.app/movies/title/${search}`;
       } else if (genre !== '') { // If only genre parameter is provided
-        url = `http://localhost:8080/movie/Video/genre/${genre}`;
+        url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genre/${genre}`;
       }
       const response = await fetch(url);
       const data = await response.json();
@@ -42,7 +42,7 @@ function MoviesPage() {
         video: movie.cdnPath,
         rate: parseFloat(movie.imdbRatings),
         reviews: 0,
-        imdbid: movie.imdbId
+        imdbid: movie.imdbid
       }));
 
       setMovies(mappedMovies);

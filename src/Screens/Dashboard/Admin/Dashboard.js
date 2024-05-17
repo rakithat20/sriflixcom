@@ -9,21 +9,21 @@ function Dashboard() {
     const [movies, setMovies] = useState([]);
     const [userCount, setUserCount] = useState(0);
     const [movieCount, setMovieCount] = useState(0);
-
+    console.log(userCount)
     useEffect(() => {
-        fetch('http://localhost:8080/user/users/count')
+        fetch('http://lobster-app-bxg93.ondigitalocean.app/users/count')
             .then(response => response.json())
             .then(data => setUserCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8080/movie/Video/moviecount')
+        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies/count')
             .then(response => response.json())
             .then(data => setMovieCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:8080/movie/Video/movies')
+        fetch('http://lobster-app-bxg93.ondigitalocean.app/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array
@@ -39,7 +39,7 @@ function Dashboard() {
                     video: movie.cdnPath, // Assuming cdnPath as the video link
                     rate: parseFloat(movie.imdbRatings), // Convert imdbRatings to float
                     reviews: 0, // You can set reviews to 0 or some default value
-                    imdbid: movie.imdbId
+                    imdbid: movie.imdbid
                 }));
                 setMovies(mappedMovies);
             })
@@ -72,7 +72,7 @@ function Dashboard() {
             bg: "bg-green-600",
             icon: FaUser,
             title: "Total Users",
-            total: userCount.toString(),
+            total: userCount.result
         },
     ];
 

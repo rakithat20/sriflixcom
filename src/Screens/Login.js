@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import Layout from '../Layout/Layout';
 import { Input } from '../Components/UsedInputs';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
-
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         console.log('Email:', email);
         console.log('Password:', password);
         try {
-            const response = await fetch('http://localhost:3000/users/user/login', {
+            const response = await fetch('http://lobster-app-bxg93.ondigitalocean.app/users/user/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
@@ -23,14 +23,15 @@ function Login() {
                     'password': password
                 })
             });
-            
+           
     
-            if (!response.status===200) {
-                setError('Invalid email or password');
-                return;
+            if (response.status===200) {
+                
+                navigate('/dashboard')
             }
             else{
-               return redirect('/dashboard')
+                setError('Invalid email or password');
+                return;
             }
     
 
