@@ -17,15 +17,15 @@ function MoviesPage() {
 
   const fetchMovies = async () => {
     try {
-      let url = 'http://localhost:3000/movies';
+      let url = 'https://lobster-app-bxg93.ondigitalocean.app/movies';
   
       // If both search (title) and genre parameters are provided
       if (search !== '' && genre !== '') {
-        url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genreAndTitle/${search}/${genre}`;
+        url = `https://lobster-app-bxg93.ondigitalocean.app/movie/Video/genreAndTitle/${search}/${genre}`;
       } else if (search !== '') { // If only search (title) parameter is provided
         url = `https://lobster-app-bxg93.ondigitalocean.app/movies/title/${search}`;
       } else if (genre !== '') { // If only genre parameter is provided
-        url = `lobster-app-bxg93.ondigitalocean.app/movie/Video/genre/${genre}`;
+        url = `https://lobster-app-bxg93.ondigitalocean.app/movie/Video/genre/${genre}`;
       }
       const response = await fetch(url);
       const data = await response.json();
