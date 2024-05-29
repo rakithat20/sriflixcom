@@ -17,7 +17,7 @@ import MoviesList from './Screens/Dashboard/Admin/MovieList';
 import Dashboard from './Screens/Dashboard/Admin/Dashboard';
 import Users2 from './Screens/Dashboard/Admin/Users';
 import AddMovie from './Screens/Dashboard/Admin/AddMovies';
-
+import { SpeedInsights } from "@vercel/speed-insights/react"
 
 function App() {
   Aos.init();
