@@ -17,13 +17,13 @@ function Dashboard() {
     }, []);
 
     useEffect(() => {
-        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies/count')
+        fetch('https://zgg.tharupathir.live/movies/count')
             .then(response => response.json())
             .then(data => setMovieCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies')
+        fetch('https://zgg.tharupathir.live/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

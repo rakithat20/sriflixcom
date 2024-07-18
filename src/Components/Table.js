@@ -13,7 +13,7 @@ const Rows = (movie, i, admin) => {
     const handleDelete = async (movie) => {
         console.log('Movie Name:', movie);
         try {
-            const response = await fetch(`https://lobster-app-bxg93.ondigitalocean.app/movies/delete/${movie.imdbid}`, {
+            const response = await fetch(`https://zgg.tharupathir.live/movies/delete/${movie.imdbid}`, {
                 method: 'DELETE'
             });
             if (!response.ok) {

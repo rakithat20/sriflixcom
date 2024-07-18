@@ -13,7 +13,7 @@ function FavoriteMovie(){
     else{
         
         let uid = user.id;
-        url = `http://localhost:8080/user/users/getliked/${uid}`;
+        url = `https://zgg.tharupathir.live/user/users/getliked/${uid}`;
     }
    
     const [movies, setMovies] = useState([]);

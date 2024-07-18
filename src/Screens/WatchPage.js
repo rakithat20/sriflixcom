@@ -10,7 +10,7 @@ function WatchPage() {
     const [play, setPlay] = useState(false);
 
     useEffect(() => {
-        fetch(`https://lobster-app-bxg93.ondigitalocean.app/movies/title/${id}`)
+        fetch(`https://zgg.tharupathir.live/movies/title/${id}`)
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({

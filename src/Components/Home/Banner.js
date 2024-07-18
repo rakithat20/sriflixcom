@@ -30,7 +30,7 @@ function Banner() {
     }
     async function postLiked(formData) {
         try {
-          const response = await fetch('http://localhost:8080/user/users/addtoliked', {
+          const response = await fetch('https://zgg.tharupathir.live/user/users/addtoliked', {
             method: 'POST',
             body: formData
           });
@@ -41,7 +41,7 @@ function Banner() {
       }
     
     useEffect(() => {
-        fetch('https://lobster-app-bxg93.ondigitalocean.app/movies')
+        fetch('https://zgg.tharupathir.live/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

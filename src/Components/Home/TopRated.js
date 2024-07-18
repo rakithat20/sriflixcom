@@ -16,7 +16,7 @@ function TopRated() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-      fetch('https://lobster-app-bxg93.ondigitalocean.app/movies')
+      fetch('https://zgg.tharupathir.live/movies')
           .then(response => response.json())
           .then(data => {
               // Map the data to match the format of Movies array
