@@ -3,11 +3,14 @@ import Layout from '../Layout/Layout';
 import { useParams, Link } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { FaCloudDownloadAlt, FaHeart, FaPlay } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function WatchPage() {
     let { id } = useParams();
     const [movie, setMovie] = useState({});
     const [play, setPlay] = useState(false);
+    const [toastShown, setToastShown] = useState(false); // State to track if toast has been shown
 
     useEffect(() => {
         fetch(`https://zgg.tharupathir.live/movies/title/${id}`)
@@ -33,11 +36,28 @@ function WatchPage() {
     }, [id]);
 
     useEffect(() => {
-        console.log(movie.video);
-    }, [movie]);
+        if (movie && !toastShown) { // Check if movie is loaded and toast hasn't been shown
+            notify();
+            setToastShown(true); // Mark toast as shown to prevent repeated showing
+        }
+    }, [movie, toastShown]);
+
+    const notify = () => {
+        toast.warn('S3 Is down. Cant watch movies.', {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    };
 
     return (
         <Layout>
+            <ToastContainer />
             <div className="container mx-auto bg-dry p-6 mb-12">
                 <div className="flex-btn flex-wrap mb-6 gap-6 bg-main rounded border border-gray-800 p-6">
                     <Link to={movie?.name} className="md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray">

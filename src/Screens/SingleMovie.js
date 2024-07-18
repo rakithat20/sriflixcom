@@ -3,27 +3,23 @@ import Layout from '../Layout/Layout';
 import { Movies } from '../Data/MovieData';
 import { useParams } from 'react-router-dom';
 import MovieInfo from '../Components/Single/MovieInfo';
-import MovieCasts from '../Components/Single/MovieCasts';
-import MovieRates from '../Components/Single/MovieRates';
-import Titles from '../Components/Titles';
-import { BsCollectionFill } from 'react-icons/bs';
-import Movie from '../Components/Movie';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function SingleMovie() {
     const { id } = useParams();
-    const [movie, setMovie] = useState(null); // Changed to null as initial state
+    const [movie, setMovie] = useState(null);
 
     useEffect(() => {
         const foundMovie = Movies.find((m) => m.name === id);
         if (foundMovie) {
             setMovie(foundMovie);
         } else {
-            // Fetch movie data from the server if not found in local data
             fetch(`https://zgg.tharupathir.live/movies/title/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {
-                        const mappedMovie = { // assuming the response is a single movie
+                        const mappedMovie = {
                             name: data[0].title,
                             desc: data[0].plot,
                             titleImage: data[0].poster,
@@ -44,7 +40,25 @@ function SingleMovie() {
                 })
                 .catch(error => console.error('Error fetching movie:', error));
         }
-    }, [id]); // Added id to the dependency array
+    }, [id]);
+
+    useEffect(() => {
+        if (movie) {
+            notify(); // Call notify when movie is loaded
+        }
+    }, [movie]);
+
+    const notify = () => toast.warn('S3 Is down.will fix it right away :)', {
+        position: "top-center",
+        autoClose: 10000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        }) ;;
+      
 
     if (!movie) {
         return null; 
@@ -54,8 +68,11 @@ function SingleMovie() {
         <Layout>
             <MovieInfo movie={movie} />
             
+            <ToastContainer/>
+
+
         </Layout>
-    )
+    );
 }
 
 export default SingleMovie;
