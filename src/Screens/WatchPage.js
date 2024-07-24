@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function WatchPage() {
     let { id } = useParams();
     const [movie, setMovie] = useState({});
+    const [cdnpath, setCdnPath] = useState('');
     const [play, setPlay] = useState(false);
     const [toastShown, setToastShown] = useState(false); // State to track if toast has been shown
 
@@ -25,7 +26,7 @@ function WatchPage() {
                     language: 'English',
                     year: movie.year,
                     time: movie.runtime,
-                    video: 'https://'+movie.cdnpath,
+                    video: movie.cdnpath, // This will be updated with the presigned URL
                     rate: parseFloat(movie.imdbRatings),
                     reviews: 0,
                     imdbid: movie.imdbid
@@ -34,6 +35,17 @@ function WatchPage() {
             })
             .catch(error => console.error('Error fetching movies:', error));
     }, [id]);
+
+    useEffect(() => {
+        if (movie.imdbid) {
+            fetch(`https://zgg.tharupathir.live/movies/presigned-url/${movie.imdbid}`)
+                .then(response => response.json())
+                .then(data => {
+                    setCdnPath(data.url);
+                })
+                .catch(error => console.error('Error fetching presigned URL:', error));
+        }
+    }, [movie.imdbid]);
 
     useEffect(() => {
         if (movie && !toastShown) { // Check if movie is loaded and toast hasn't been shown
@@ -74,7 +86,7 @@ function WatchPage() {
                 </div>
                 {play ? (
                     <video controls autoPlay={play} className="w-full h-full rounded">
-                        <source src={movie.video} type="video/mp4" title={movie.name} />
+                        <source src={cdnpath} type="video/mp4" title={movie.name} />
                     </video>
                 ) : (
                     <div className="w-full h-screen rounded-lg overflow-hidden relative">

@@ -105,7 +105,7 @@ function AddMovie(){
         formData.append("data", JSON.stringify(obj)); // Use 'obj' instead of 'movieObj'
     
         // Post the form data to your backend endpoint
-        fetch("https://lobster-app-bxg93.ondigitalocean.app/movies/upload", {
+        fetch("https://zgg.tharupathir.live/movies/upload", {
             method: 'POST',
             body: formData
         })
