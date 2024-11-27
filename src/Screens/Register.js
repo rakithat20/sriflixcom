@@ -22,7 +22,7 @@ function Register() {
 
     async function postUser(formData) {
         try {
-            const response = await fetch('https://lobster-app-bxg93.ondigitalocean.app/users/user', {
+            const response = await fetch('http://localhost:3000/user', {
                 method: 'POST',
                 body: formData
             });

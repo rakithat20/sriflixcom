@@ -15,7 +15,7 @@ function SingleMovie() {
         if (foundMovie) {
             setMovie(foundMovie);
         } else {
-            fetch(`https://zgg.tharupathir.live/movies/title/${id}`)
+            fetch(`http://localhost:3000/movies/title/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {

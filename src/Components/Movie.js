@@ -28,7 +28,7 @@ function Movie({ movie }) {
     }
     async function postLiked(formData) {
         try {
-          const response = await fetch('https://zgg.tharupathir.live/user/users/addtoliked', {
+          const response = await fetch('http://localhost:3000/user/users/addtoliked', {
             method: 'POST',
             body: formData
           });
