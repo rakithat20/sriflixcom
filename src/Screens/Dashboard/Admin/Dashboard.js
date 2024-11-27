@@ -11,19 +11,19 @@ function Dashboard() {
     const [movieCount, setMovieCount] = useState(0);
     console.log(userCount)
     useEffect(() => {
-        fetch('https://lobster-app-bxg93.ondigitalocean.app/users/count')
+        fetch('http://localhost:3000/users/count')
             .then(response => response.json())
             .then(data => setUserCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('https://zgg.tharupathir.live/movies/count')
+        fetch('http://localhost:3000/movies/count')
             .then(response => response.json())
             .then(data => setMovieCount(data));
     }, []);
 
     useEffect(() => {
-        fetch('https://zgg.tharupathir.live/movies')
+        fetch('http://localhost:3000/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array
