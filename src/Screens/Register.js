@@ -22,9 +22,17 @@ function Register() {
 
     async function postUser(formData) {
         try {
-            const response = await fetch('http://localhost:3000/user', {
+            const response = await fetch('http://localhost:3000/users/user', {
                 method: 'POST',
-                body: formData
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: new URLSearchParams({
+                    'username':name,
+                    'email': email,
+                    'password': password,
+                    'role':'user'
+                })
             });
             if(response.ok){
                 window.location.assign('/login')
