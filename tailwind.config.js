@@ -9,7 +9,9 @@ module.exports = {
         header: '560px',
         rate: '400px',
       },
-
+      spacing:{
+        '128': '39rem'
+      },
       fontSize: {
         h1: '2.6rem',
       },

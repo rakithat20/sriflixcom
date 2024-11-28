@@ -2,13 +2,12 @@ import React, { useEffect, useState } from 'react';
 import Titles from '../Titles';
 import { BsCollectionFill } from 'react-icons/bs';
 import Movie from '../Movie';
-import { Movies } from '../../Data/MovieData';
 
 function PopularMovies() {
   const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8080/movie/Video/toprated')
+        fetch('http://localhost:3000/movies')
             .then(response => response.json())
             .then(data => {
                 // Map the data to match the format of Movies array

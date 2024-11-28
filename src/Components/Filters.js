@@ -1,24 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CategoriesData } from "../Data/CategoriesData";
 import { Listbox, Transition } from "@headlessui/react";
-import { SelectorIcon, CheckIcon } from "@heroicons/react/solid";
 import { Fragment } from "react";
 import { FaAngleDown, FaCheck } from "react-icons/fa6";
 
 const YearData = [
   { title: "Sort By Year" },
-  { title: "1700 - 1800" },
-  { title: "1800 - 1900" },
-  { title: "1900 - 2000" },
-  { title: "2000 - 2030" },
+  { title: "1950 - 1970" },
+  { title: "1970 - 1990" },
+  { title: "1990 - 2010" },
+  { title: "2010 - 2030" },
 ];
 
 const TimesData = [
   { title: "Sort By Hours" },
-  { title: "1 - 5 Hours" },
-  { title: "5 - 10 Hours" },
-  { title: "10 - 15 Hours" },
-  { title: "15 - 20 Hours" },
+  { title: "1 - 2 Hours" },
+  { title: "2 - 3 Hours" },
+  { title: "3 + Hours" },
+  
 ];
 
 const RatesData = [
@@ -58,6 +57,13 @@ function Filters() {
       items: RatesData,
     },
   ];
+
+  useEffect(() => {
+    console.log("Category:", category);
+    console.log("Year:", year);
+    console.log("Time:", time);
+    console.log("Rate:", rate);
+  }, [category, year, time, rate]);
 
   return (
     <div className="my-6 bg-dry border text-dryGray border-gray-800 grid md:grid-cols-4 grid-cols-2 lg:gap-12 gap-2 rounded p-6">

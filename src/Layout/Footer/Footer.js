@@ -1,68 +1,38 @@
 import React from 'react';
 import { Link, Link as RouterLink } from 'react-router-dom';
+
+
 function Footer() {
-  const footerLinks = [
+ 
+
+  let footerLinks;
+
+  footerLinks = [
     {
       title: 'Company',
       links: [
-        {
-          name: 'Home',
-          link: '/'
-        },
-        {
-          name: 'About Us',
-          link: '/about-us'
-        },
-        {
-          name: 'Contact Us',
-          link: '/contact-us'
-        },
-        {
-          name: 'Movies',
-          link: '/movies'
-        }
+        { name: 'Home', link: '/' },
+        { name: 'About Us', link: '/about-us' },
+        { name: 'Contact Us', link: '/contact-us' },
+        { name: 'Movies', link: '/movies' }
       ]
     },
     {
       title: 'Top Categories',
       links: [
-        {
-          name: 'Action',
-          link: '#'
-        },
-        {
-          name: 'Romantic',
-          link: '#'
-        },
-        {
-          name: 'Drama',
-          link: '#'
-        },
-        {
-          name: 'Historical',
-          link: '#'
-        }
+        { name: 'Action', link: '#' },
+        { name: 'Romantic', link: '#' },
+        { name: 'Drama', link: '#' },
+        { name: 'Historical', link: '#' }
       ]
     },
     {
       title: 'My Account',
       links: [
-        {
-          name: 'Dashboard',
-          link: '/dashboard'
-        },
-        {
-          name: 'My Favorites',
-          link: '/favorite'
-        },
-        {
-          name: 'Profile',
-          link: '/profile'
-        },
-        {
-          name: 'Change Password',
-          link: '/password'
-        }
+        { name: 'Dashboard', link: '/dashboard' },
+        { name: 'My Favorites', link: '/favorites' },
+        { name: 'Profile', link: '/profile' },
+        { name: 'Change Password', link: '/password' }
       ]
     }
   ];
