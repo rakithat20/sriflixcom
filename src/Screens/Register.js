@@ -8,16 +8,65 @@ function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const handleRegister = () => {
-        const Formdata = new FormData();
-        Formdata.append('username', name);
-        Formdata.append('password', password);
-        Formdata.append('mail', email);
-        Formdata.append('role', 'user');
-        postUser(Formdata);
-        for (let pair of Formdata.entries()) {
-            console.log(pair[0] + ': ' + pair[1]);
+    const [emailError, setEmailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [formValid, setFormValid] = useState(false);
+
+    // Validate email
+    const validateEmail = (value) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) {
+            setEmailError('Invalid email format.');
+        } else {
+            setEmailError('');
         }
+    };
+
+    // Validate password
+    const validatePassword = (value) => {
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?||])[A-Za-z\d@$!%*?&]{8,}$/;
+        if (!passwordRegex.test(value)) {
+            setPasswordError(
+                'Password must be at least 8 characters long, include an uppercase letter, a lowercase letter, a number, and a special character.'
+            );
+        } else {
+            setPasswordError('');
+        }
+    };
+
+    // Handle field changes
+    const handleEmailChange = (e) => {
+        const value = e.target.value;
+        setEmail(value);
+        validateEmail(value);
+        checkFormValidity();
+    };
+
+    const handlePasswordChange = (e) => {
+        const value = e.target.value;
+        setPassword(value);
+        validatePassword(value);
+        checkFormValidity();
+    };
+
+    // Check if the form is valid
+    const checkFormValidity = () => {
+        setFormValid(
+            emailError === '' &&
+            passwordError === '' &&
+            name.trim() !== '' &&
+            email.trim() !== '' &&
+            password.trim() !== ''
+        );
+    };
+
+    const handleRegister = () => {
+        const formData = new FormData();
+        formData.append('username', name);
+        formData.append('password', password);
+        formData.append('email', email);
+        formData.append('role', 'user');
+        postUser(formData);
     };
 
     async function postUser(formData) {
@@ -28,20 +77,18 @@ function Register() {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: new URLSearchParams({
-                    'username':name,
+                    'username': name,
                     'email': email,
                     'password': password,
-                    'role':'user'
+                    'role': 'user'
                 })
             });
-            if(response.ok){
-                window.location.assign('/login')
+            if (response.ok) {
+                window.location.assign('/login');
             }
         } catch (error) {
             console.error('Error signing up:', error);
-            
         }
-    
     }
 
     return (
@@ -51,30 +98,41 @@ function Register() {
                     <img src="/images/logo.png" alt="Sriflix Logo" className="w-24 mx-auto" />
                     <Input
                         label="Full Name"
-                        placeholder="John doe"
+                        placeholder="John Doe"
                         type="text"
                         bg={true}
-                        onChange={(e) => setName(e.target.value)}
+                        onChange={(e) => {
+                            setName(e.target.value);
+                            checkFormValidity();
+                        }}
                     />
                     <Input
                         label="Email"
                         placeholder="sriflix@gmail.com"
                         type="email"
                         bg={true}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={handleEmailChange}
                     />
+                    {emailError && <p className="text-red-500 text-sm">{emailError}</p>}
                     <Input
                         label="Password"
                         placeholder="********"
                         type="password"
                         bg={true}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={handlePasswordChange}
                     />
-                    <button onClick={handleRegister} className=" bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full">
-                        <FiLogIn />Sign Up
+                    {passwordError && <p className="text-red-500 text-sm">{passwordError}</p>}
+                    <button
+                        onClick={handleRegister}
+                        disabled={!formValid}
+                        className={`bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full ${
+                            !formValid ? 'opacity-50 cursor-not-allowed' : ''
+                        }`}
+                    >
+                        <FiLogIn /> Sign Up
                     </button>
                     <p className="text-center text-border">
-                        Already have an account?{" "}
+                        Already have an account?{' '}
                         <Link to="/login" className="text-dryGray font-semibold ml-2">
                             Sign In
                         </Link>
