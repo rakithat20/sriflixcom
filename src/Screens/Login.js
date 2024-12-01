@@ -3,6 +3,7 @@ import Layout from '../Layout/Layout';
 import { Input } from '../Components/UsedInputs';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiLogIn } from 'react-icons/fi';
+
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -10,36 +11,42 @@ function Login() {
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        console.log('Email:', email);
-        console.log('Password:', password);
+        // Clear previous errors
+        setError('');
+
+        // Validation for empty fields
+        if (!email) {
+            setError('Please enter your email.');
+            return;
+        }
+        if (!password) {
+            setError('Please enter your password.');
+            return;
+        }
+
         try {
             const response = await fetch('http://localhost:3000/users/user/login', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
+                    'Content-Type': 'application/x-www-form-urlencoded',
                 },
                 body: new URLSearchParams({
-                    'email': email,
-                    'password': password
-                })
+                    email: email,
+                    password: password,
+                }),
             });
-           
-    
-            if (response.status===200) {
-                
-                navigate('/dashboard')
-            }
-            else{
-                setError('Invalid email or password');
-                return;
-            }
-    
 
+            if (response.status === 200) {
+                navigate('/dashboard');
+            } else {
+                setError('Invalid email or password.');
+            }
         } catch (error) {
             console.error('Login failed:', error);
             setError('Login failed. Please try again later.');
         }
-    }
+    };
+
     return (
         <Layout>
             <div className="container mx-auto px-2 my-24 flex-colo">
@@ -61,10 +68,13 @@ function Login() {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
-                    <button onClick={handleLogin} className=" bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full">
-                        <FiLogIn />Sign In
+                    <button
+                        onClick={handleLogin}
+                        className="bg-subMain transitions hover:bg-main flex-rows gap-4 text-white p-4 rounded-lg w-full"
+                    >
+                        <FiLogIn /> Sign In
                     </button>
-                    {error && <p className="text-center text-red-500">{error}</p>}
+                    {error && <p className="text-center text-red-500 mt-4">{error}</p>}
                     <p className="text-center text-border">
                         Don't have an account?{' '}
                         <Link to="/register" className="text-dryGray font-semibold ml-2">
