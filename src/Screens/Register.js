@@ -71,7 +71,7 @@ function Register() {
 
     async function postUser(formData) {
         try {
-            const response = await fetch('http://localhost:3000/users/user', {
+            const response = await fetch('https://backend.sriflix.tharupathir.live/users/user', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'

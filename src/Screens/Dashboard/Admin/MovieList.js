@@ -7,7 +7,7 @@ function MoviesList(){
     const [movies, setMovies] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/movies')
+        fetch('https://backend.sriflix.tharupathir.live/movies')
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({

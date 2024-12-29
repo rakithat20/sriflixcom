@@ -3,8 +3,6 @@ import Layout from '../Layout/Layout';
 import { Movies } from '../Data/MovieData';
 import { useParams } from 'react-router-dom';
 import MovieInfo from '../Components/Single/MovieInfo';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function SingleMovie() {
     const { id } = useParams();
@@ -15,7 +13,7 @@ function SingleMovie() {
         if (foundMovie) {
             setMovie(foundMovie);
         } else {
-            fetch(`http://localhost:3000/movies/title/${id}`)
+            fetch(`https://backend.sriflix.tharupathir.live/movies/title/${id}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.length > 0) {
@@ -42,24 +40,6 @@ function SingleMovie() {
         }
     }, [id]);
 
-    useEffect(() => {
-        if (movie) {
-            notify(); // Call notify when movie is loaded
-        }
-    }, [movie]);
-
-    const notify = () => toast.warn('S3 Is down.will fix it right away :)', {
-        position: "top-center",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        }) ;;
-      
-
     if (!movie) {
         return null; 
     }
@@ -67,10 +47,6 @@ function SingleMovie() {
     return (
         <Layout>
             <MovieInfo movie={movie} />
-            
-            <ToastContainer/>
-
-
         </Layout>
     );
 }

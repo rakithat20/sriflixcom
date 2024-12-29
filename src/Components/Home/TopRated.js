@@ -16,7 +16,7 @@ function TopRated() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-      fetch('http://localhost:3000/movies')
+      fetch('https://backend.sriflix.tharupathir.live/movies')
           .then(response => response.json())
           .then(data => {
               // Map the data to match the format of Movies array
@@ -63,7 +63,7 @@ function TopRated() {
   }
   async function postLiked(formData) {
       try {
-        const response = await fetch('http://localhost:8080/user/users/addtoliked', {
+        const response = await fetch('https://backend.sriflix.tharupathir.live/user/users/addtoliked', {
           method: 'POST',
           body: formData
         });

@@ -3,18 +3,14 @@ import Layout from '../Layout/Layout';
 import { useParams, Link } from 'react-router-dom';
 import { BiArrowBack } from 'react-icons/bi';
 import { FaCloudDownloadAlt, FaHeart, FaPlay } from 'react-icons/fa';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 function WatchPage() {
     let { id } = useParams();
     const [movie, setMovie] = useState({});
-    const [cdnpath, setCdnPath] = useState('');
     const [play, setPlay] = useState(false);
-    const [toastShown, setToastShown] = useState(false); // State to track if toast has been shown
 
     useEffect(() => {
-        fetch(`https://zgg.tharupathir.live/movies/title/${id}`)
+        fetch(`https://backend.sriflix.tharupathir.live/movies/title/${id}`)
             .then(response => response.json())
             .then(data => {
                 const mappedMovies = data.map(movie => ({
@@ -26,7 +22,7 @@ function WatchPage() {
                     language: 'English',
                     year: movie.year,
                     time: movie.runtime,
-                    video: movie.cdnpath, // This will be updated with the presigned URL
+                    video: movie.cdnpath, // Set video from movie object
                     rate: parseFloat(movie.imdbRatings),
                     reviews: 0,
                     imdbid: movie.imdbid
@@ -36,40 +32,8 @@ function WatchPage() {
             .catch(error => console.error('Error fetching movies:', error));
     }, [id]);
 
-    useEffect(() => {
-        if (movie.imdbid) {
-            fetch(`https://zgg.tharupathir.live/movies/presigned-url/${movie.imdbid}`)
-                .then(response => response.json())
-                .then(data => {
-                    setCdnPath(data.url);
-                })
-                .catch(error => console.error('Error fetching presigned URL:', error));
-        }
-    }, [movie.imdbid]);
-
-    useEffect(() => {
-        if (movie && !toastShown) { // Check if movie is loaded and toast hasn't been shown
-            notify();
-            setToastShown(true); // Mark toast as shown to prevent repeated showing
-        }
-    }, [movie, toastShown]);
-
-    const notify = () => {
-        toast.warn('S3 Is down. Cant watch movies.', {
-            position: "top-center",
-            autoClose: 10000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        });
-    };
-
     return (
         <Layout>
-            <ToastContainer />
             <div className="container mx-auto bg-dry p-6 mb-12">
                 <div className="flex-btn flex-wrap mb-6 gap-6 bg-main rounded border border-gray-800 p-6">
                     <Link to={movie?.name} className="md:text-xl text-sm flex gap-3 items-center font-bold text-dryGray">
@@ -86,7 +50,7 @@ function WatchPage() {
                 </div>
                 {play ? (
                     <video controls autoPlay={play} className="w-full h-full rounded">
-                        <source src={cdnpath} type="video/mp4" title={movie.name} />
+                        <source src={movie.video} type="video/mp4" title={movie.name} />
                     </video>
                 ) : (
                     <div className="w-full h-screen rounded-lg overflow-hidden relative">

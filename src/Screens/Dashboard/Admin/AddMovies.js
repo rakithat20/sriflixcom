@@ -105,7 +105,7 @@ function AddMovie(){
         formData.append("data", JSON.stringify(obj)); // Use 'obj' instead of 'movieObj'
     
         // Post the form data to your backend endpoint
-        fetch("https://zgg.tharupathir.live/movies/upload", {
+        fetch("https://backend.sriflix.tharupathir.live/movies/upload", {
             method: 'POST',
             body: formData
         })

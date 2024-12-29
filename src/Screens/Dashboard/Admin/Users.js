@@ -8,7 +8,7 @@ function Users2() {
     useEffect(() => {
         async function fetchUserData() {
             try {
-                const response = await fetch('http://localhost:3000/users');
+                const response = await fetch('https://backend.sriflix.tharupathir.live/users');
                 if (!response.ok) {
                     throw new Error('Failed to fetch user data');
                 }

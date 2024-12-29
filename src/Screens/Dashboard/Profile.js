@@ -34,7 +34,7 @@ function Profile() {
       for (let pair of formData.entries()) {
         console.log(pair[0] + ': ' + pair[1]);
       }
-      const response = await fetch('http://localhost:8080/user/users/update', { // Replace 'http://example.com/update' with your actual update endpoint URL
+      const response = await fetch('https://backend.sriflix.tharupathir.live/user/users/update', { // Replace 'http://example.com/update' with your actual update endpoint URL
         method: 'PUT',
         body: formData
       });
